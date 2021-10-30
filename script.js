@@ -130,3 +130,78 @@ function isExist(e) {
     }
     return false
 }
+
+// Show next fail drawing
+function showNextFail() {
+    fail++
+    switch(fail) {
+        case 1:
+            gId("g0").setAttribute("data", "true")
+            break;
+        
+        case 2:
+            gId("g1").setAttribute("data", "true")
+            break;
+        
+        case 3:
+            gId("g2").setAttribute("data", "true")
+            break;
+        
+        case 4:
+            gId("g3").setAttribute("data", "true")
+            gId("hintButton").setAttribute("data", "true")
+            break;
+        
+        case 5:
+            gId("g4").setAttribute("data", "true")
+            break;
+        
+        case 6:
+            gId("g5").setAttribute("data", "true")
+            break;
+        
+        case 7:
+            gId("g5").setAttribute("l", "true")
+            break;
+        
+        case 8:
+            gId("g5").setAttribute("r", "true")
+            break;
+        
+        case 9:
+            gId("g6").setAttribute("data", "true")
+            gId("g6").setAttribute("l", "true")
+            break;
+        
+        case 10:
+            gId("g6").setAttribute("r", "true")
+            gameEnd(false)
+            break;
+    }
+}
+
+function typeWord(e) {
+    for(a = 0; a < word[select][0].length; a++) {
+        if(word[select][0][a].toUpperCase() == e) {
+            gId("l" + a).innerText = e
+        }
+    }
+}
+
+
+
+// Show hint
+function hint() {
+    gId("hintText").innerText = word[select][1]
+    gId("hint").style.display = "block"
+}
+
+// Exit hint
+function hintExit() {
+    gId("hint").style.display = "none"
+}
+
+// Get HTML ID element by name
+function gId(a) {
+    return document.getElementById(a)
+}
