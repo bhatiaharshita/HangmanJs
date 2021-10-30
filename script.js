@@ -26,3 +26,25 @@ window.onload = function() {
     }, false)
     createTastur()
 }
+
+// Start game
+function startGame() {
+    gId("home").className = "h"
+    gId("result").className = "h"
+    newGame()
+}
+
+// New game
+function newGame() {
+    clearTastatur()
+    clearPlayer()
+    createWord()
+}
+
+// Clear keyboard
+function clearTastatur() {
+    var e = document.getElementsByClassName("b")
+    for(a = 0; a < e.length; a++) {
+        e[a].setAttribute("data", "")
+    }
+}
