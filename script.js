@@ -48,3 +48,85 @@ function clearTastatur() {
         e[a].setAttribute("data", "")
     }
 }
+// Clear player
+function clearPlayer() {
+    fail = 0
+    wordLeft = []
+    gId("g0").setAttribute("data", "false")
+    gId("g1").setAttribute("data", "false")
+    gId("g2").setAttribute("data", "false")
+    gId("g3").setAttribute("data", "false")
+    gId("g4").setAttribute("data", "false")
+    gId("g5").setAttribute("data", "false")
+    gId("g5").setAttribute("r", "false")
+    gId("g5").setAttribute("l", "false")
+    gId("g6").setAttribute("data", "false")
+    gId("g6").setAttribute("l", "false")
+    gId("g6").setAttribute("r", "false")
+    gId("hintButton").setAttribute("data", "false")
+    gId("hint").style.display = "none"
+}
+
+// Get new word
+function createWord() {
+    var d = gId("letter")
+    d.innerHTML = ""
+    select = Math.floor(Math.random() * word.length)
+    for(a = 0; a < word[select][0].length; a++) {
+        var x = word[select][0][a].toUpperCase()
+        var b = document.createElement("span")
+        b.className = "l" + (x == " " ? " ls" : "")
+        b.innerHTML = "&nbsp"
+        b.id = "l" + a;
+        d.appendChild(b)
+        
+        if(x != " ") {
+            if(wordLeft.indexOf(x) == -1) {
+                wordLeft.push(x)
+            }
+        }
+    }
+}
+
+// Create keyboard
+function createTastur() {
+    var tas = gId("keybord")
+    tas.innerHTML = ""
+    for(a = 0; a < tastatur.length; a++) {
+        var b = document.createElement("span")
+        b.className = "b"
+        b.innerText = tastatur[a]
+        b.setAttribute("data", "")
+        b.onclick = function() {
+            bTas(this)
+        }
+        tas.appendChild(b)
+    }
+}
+
+// Game check, If show next error / game end
+function bTas(a) {
+    if(a.getAttribute("data") == "") {
+        var x = isExist(a.innerText)
+        a.setAttribute("data", x)
+        if(x) {
+            if(wordLeft.length == 0) {
+                gameEnd(true)
+            }
+        } else {
+            showNextFail()
+        }
+    }
+}
+
+// If letter "X" exist
+function isExist(e) {
+    e = e.toUpperCase()
+    var x = wordLeft.indexOf(e)
+    if(x != -1) {
+        wordLeft.splice(x, 1)
+        typeWord(e)
+        return true
+    }
+    return false
+}
